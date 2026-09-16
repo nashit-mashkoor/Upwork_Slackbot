@@ -1,0 +1,26 @@
+version: '3'
+services:
+  upwork_slackbot:
+    image: upwork_slackbot:1.0
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - CONSUMER_KEY=""
+      - CONSUMER_SECRET=""
+      - QUERY=Ruby-on-Rails
+      - SLACK_BOT_TOKEN=""
+      - SLACK_APP_TOKEN=""
+      - CHANNEL_ID=""
+      - REDIS_HOST=redis
+      - REDIS_TTL=10
+  redis:
+    image: redis:latest
+    ports:
+      - 6379:6379
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+
+volumes:
+  redis_data:
